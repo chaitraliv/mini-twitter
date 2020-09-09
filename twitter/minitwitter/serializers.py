@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
-from minitwitter.models import UserData, UserRelation,Tweet, LikeRelation
+from minitwitter.models import UserData, UserRelation,Tweet, TweetLike
 from rest_framework import serializers
 
 class ThinUserSerializer(serializers.ModelSerializer):
@@ -25,7 +25,7 @@ class UserSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(required=True)
     last_name= serializers.CharField(required=True)
     email= serializers.EmailField(required=True)
-    tweets= TweetSerializer(many=True,required=False)
+    tweets= TweetSerializer(many=True,read_only=True)
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
@@ -57,12 +57,12 @@ class UserRelationSerializer(serializers.ModelSerializer):
 
 
 
-class LikeRelationSerializer(serializers.ModelSerializer):
+class TweetLikeSerializer(serializers.ModelSerializer):
     '''Serializer for tweet likes'''
     tweet=TweetSerializer(read_only=True)
     tweet_id=serializers.IntegerField(required=True)
 
     class Meta:
-        model = LikeRelation
+        model = TweetLike
         fields = ['id','user','tweet','tweet_id']
         read_only_fields = ['user','tweet']

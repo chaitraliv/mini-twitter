@@ -1,11 +1,11 @@
 from django.urls import path
 from minitwitter.views import (
 
-UserListCreateView,RetriveUpdateProfileView,
+UserListCreateView,ProfileRetriveUpdateView,
 TweetListCreateView, CurrentUserView,
 FollowingListView,FollowersListView,
 FollowingRetriveDestroyView,LikeTweetListView,
-LikeTweetRetriveDestroyView)
+LikeTweetRetriveDestroyView, SearchView)
 
 from rest_framework.authtoken import views
 
@@ -13,11 +13,13 @@ urlpatterns = [
 
     path('users/', UserListCreateView.as_view(),name='list_users'),
 
-    path('login/', views.obtain_auth_token, name= 'login'),#call after register, give username password
+    path('login/', views.obtain_auth_token, name= 'login'),
 
-    path('current_user/',CurrentUserView.as_view(),name='allprofile'), #call after login,give token
+    path('current_user/',CurrentUserView.as_view(),name='allprofile'), 
 
-    path('users/<int:pk>/', RetriveUpdateProfileView.as_view(),name='profile'),
+    path('search/', SearchView.as_view(),name='search'),
+
+    path('users/<int:pk>/', ProfileRetriveUpdateView.as_view(),name='profile'), #ProfileRetriveUpdateView
 
     path('users/<int:pk>/followings/', FollowingListView.as_view(),name='followings'),
 
@@ -29,6 +31,6 @@ urlpatterns = [
 
     path('tweets/<int:pk>/like/', LikeTweetListView.as_view(),name='like'),
 
-    path('tweets/<int:user_id>/like/<int:pk>/', LikeTweetRetriveDestroyView.as_view(),name='unline'),
+    path('tweets/<int:user_id>/like/<int:pk>/', LikeTweetRetriveDestroyView.as_view(),name='unlike'), #tweets/tweet_id/like/pk
 
 ]

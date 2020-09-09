@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 
+
+#use manager
 @receiver(models.signals.post_save, sender=User)
 def profile_create(sender, instance, created, **kwargs):
     if created:
@@ -30,8 +32,7 @@ class UserRelation(models.Model):
         unique_together=('user','following')
 
 
-class LikeRelation(models.Model):
-    '''tweet-like'''
+class TweetLike(models.Model):           
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name= 'likes')
     tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE,related_name= 'liked_by')
     class Meta:
