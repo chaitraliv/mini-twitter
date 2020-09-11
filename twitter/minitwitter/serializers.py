@@ -38,11 +38,11 @@ class UserSerializer(serializers.ModelSerializer):
         
 
 class UserDataSerializer(serializers.ModelSerializer):
-    '''Serializer for data ie. bio'''
+    '''Serializer for user data ie. bio'''
     user = UserSerializer(read_only= True)
     class Meta:
         model = UserData
-        fields = ['user','bio',]
+        fields = ['user','bio','profile_picture']
 
 
 class UserRelationSerializer(serializers.ModelSerializer):

@@ -5,7 +5,8 @@ UserListCreateView,ProfileRetriveUpdateView,
 TweetListCreateView, CurrentUserView,
 FollowingListView,FollowersListView,
 FollowingRetriveDestroyView,LikeTweetListView,
-LikeTweetRetriveDestroyView, SearchView)
+LikeTweetRetriveDestroyView, SearchView,
+TweetUpdateDestroyView)
 
 from rest_framework.authtoken import views
 
@@ -19,7 +20,7 @@ urlpatterns = [
 
     path('search/', SearchView.as_view(),name='search'),
 
-    path('users/<int:pk>/', ProfileRetriveUpdateView.as_view(),name='profile'), #ProfileRetriveUpdateView
+    path('users/<int:pk>/', ProfileRetriveUpdateView.as_view(),name='profile'), 
 
     path('users/<int:pk>/followings/', FollowingListView.as_view(),name='followings'),
 
@@ -29,8 +30,10 @@ urlpatterns = [
 
     path('tweets/', TweetListCreateView.as_view(),name='timeline'),
 
+    path('users/<int:user_id>/tweets/<int:pk>/', TweetUpdateDestroyView.as_view(),name='tweet_update'),
+
     path('tweets/<int:pk>/like/', LikeTweetListView.as_view(),name='like'),
 
-    path('tweets/<int:user_id>/like/<int:pk>/', LikeTweetRetriveDestroyView.as_view(),name='unlike'), #tweets/tweet_id/like/pk
+    path('tweets/<int:user_id>/like/<int:pk>/', LikeTweetRetriveDestroyView.as_view(),name='unlike'), 
 
 ]

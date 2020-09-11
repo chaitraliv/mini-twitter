@@ -1,11 +1,9 @@
-from django.db import IntegrityError
 from django.contrib.auth.models import User
 from django.db.models import Q
 from rest_framework.views import APIView
 from rest_framework import filters
 from rest_framework import generics, mixins
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.generics import get_object_or_404
 from .permissions import IsOwner,IsSafeMethod
 from minitwitter.models import(
     UserData, UserRelation,
@@ -56,14 +54,18 @@ class ProfileRetriveUpdateView(generics.RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated,IsOwner)
 
     
-#different generic api for search
+
 class SearchView(generics.ListAPIView):
+    '''
+    APIView for full text search
+    '''
     queryset = Tweet.objects.all()
     serializer_class = TweetSerializer
     permission_classes = (IsAuthenticated,)
 
     filter_backends = [filters.SearchFilter]
     search_fields = ['user__username','user__first_name','user__last_name','content']
+
 
 
 class TweetListCreateView(generics.ListCreateAPIView):
@@ -81,8 +83,20 @@ class TweetListCreateView(generics.ListCreateAPIView):
     
     
     def get_queryset(self):
-        all_tweets= Tweet.objects.filter(Q(user=self.request.user)|Q(user__followers__user=self.request.user))
-        return all_tweets
+        current_user = self.request.user
+        following_list= current_user.follows.all().values_list('following',flat=True)
+        all_users = Tweet.objects.filter(Q(pk__in=following_list) | Q(user= current_user))
+        return all_users
+
+
+
+class TweetUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    """
+    ApiView to retrive,update and delete any tweet of logged in user
+    """
+    queryset = Tweet.objects.all()
+    serializer_class = TweetSerializer
+    permission_classes = (IsAuthenticated, IsOwner)
 
 
 
@@ -101,18 +115,20 @@ class FollowingListView(generics.ListCreateAPIView):
         serializer.save(user_id=self.request.user.id)
 
 
+
 class FollowingRetriveDestroyView(generics.RetrieveDestroyAPIView):
     '''
     API to unfollow any following user
     '''
     queryset = UserRelation.objects.all()
     serializer_class = UserRelationSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,IsOwner)
 
     def get_queryset(self):
         return  self.queryset.filter(user=self.request.user)     
 
     
+
 class FollowersListView(generics.ListAPIView):
     '''
     API to see logged in user's followers
@@ -122,7 +138,9 @@ class FollowersListView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
 
     def filter_queryset(self,queryset):
-       return self.queryset.filter(following=self.kwargs["pk"])
+       return self.queryset.filter(following= self.request.user.id)
+
+
 
 class LikeTweetListView(generics.ListCreateAPIView):
     '''
@@ -137,6 +155,8 @@ class LikeTweetListView(generics.ListCreateAPIView):
 
     def perform_create(self,serializer):
         serializer.save(user_id=self.request.user.id)
+
+
 
 class LikeTweetRetriveDestroyView(generics.RetrieveDestroyAPIView):
     '''
