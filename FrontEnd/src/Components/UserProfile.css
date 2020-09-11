@@ -1,0 +1,240 @@
+.Profile{
+    
+    /* top:0;
+    height: 500px;
+    width: 540px;
+    border: 1px solid rgba(0,0,0,.1);
+    padding: 20px 28.77px;
+    transform:translate(493px,-662px);
+    text-align: center;
+    overflow: scroll; */
+
+top:0;
+ height: 657px;
+ width: 540px;
+ border: 1px solid rgba(0,0,0,.1);
+ padding: 20px 28.77px;
+ transform:translate(493px,-870px);
+ /* text-align: center; */
+ /* overflow: scroll; */
+ background-color: #fff;
+}
+
+#upper-portion{
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom:1px solid  rgba(0,0,0,.1);
+}
+.fa-user-alt{
+    margin-top: 10px;
+    font-size: 80px;
+}
+
+#user-id{
+    font-size: 15px;
+    color: black;
+}
+
+#full-name{
+    margin-top: 10px;
+    font-weight: bold;
+    color: black;
+    font-size: 25px;
+}
+
+#bio{
+
+    text-align: left;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: bolder;
+    
+}
+#tweets-available{
+
+    margin-top: 10px;
+    
+    height: 6%;
+    width: 50%;
+    border:none;
+    border-bottom:2px solid skyblue;
+    background-color:rgb(194, 238, 255) ;
+    color:  rgb(35, 154, 233);
+    font-weight: bolder;
+}
+#tweets-available:hover{
+
+    height: 6%;
+    width: 50%;
+    border:none;
+    border-bottom:2px solid skyblue;
+    background-color: rgb(35, 154, 233);
+    color:  white;
+    font-weight: bolder;
+}
+
+.tweets{
+
+    height:50%;
+    width: 100%;
+    /* border-bottom: 12px solid skyblue; */
+    overflow: scroll;
+    text-align: left;
+    margin-bottom: 20px;
+    
+}
+
+#label-{
+    background-color:rgba(35, 154, 233) ;
+    font-weight: bolder;
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;
+    padding: 5px 5px;
+    margin-top: 10px;
+   
+}
+
+ #tweets{
+    /* margin-left: 30px; */
+    color: black;
+    font-weight: bolder;
+    font-size: 18px;
+    
+    
+}
+#twitter{
+    margin-left: 35px;
+    font-weight: lighter;
+}
+#user-tweet{
+    
+    border-bottom: 2px solid rgb(230, 228, 228);
+
+}
+#tweetuser{
+
+    color: black;
+    font-size: 20px;
+    font-weight: bolder;
+    font-style: normal;
+    background-color:white;
+    padding: 5px 0px;
+
+    
+} 
+
+/* #followers,#following,#edit{
+
+    margin-left: 8%;
+    margin-right: 8%;
+    height: 8%;
+    width: 15%;
+    border-radius: 50px;
+    border:2px solid skyblue;
+    background-color: #fff;
+    color:  rgb(35, 154, 233);
+    font-weight: bolder;
+} */
+
+#edit{
+
+    /* margin-left: 8%;
+    margin-right: 8%; */
+    height: 8%;
+    width: 25%;
+    border-radius: 50px;
+    border:2px solid skyblue;
+    background-color: #fff;
+    color:  rgb(35, 154, 233);
+    font-weight: bolder;
+    transform: translate(400px,-500px);
+} 
+#edit:hover{
+
+    height: 8%;
+    width: 25%;
+    border-radius: 50px;
+    border:2px solid rgb(194, 238, 255);
+    background-color:rgb(194, 238, 255) ;
+    color:  rgb(35, 154, 233);
+    font-weight: bolder;
+    transform: translate(400px,-500px);
+}
+
+#exitbtn{
+height: 8%;
+width: 15%;
+border-radius: 50px;
+border:2px solid skyblue;
+background-color: #fff;
+color:  rgb(35, 154, 233);
+font-weight: bolder;
+position: fixed;
+left:0;
+transform: translate(10px,10px);
+}
+
+#exitbtn:hover{
+
+    height: 8%;
+    width: 15%;
+    border-radius: 50px;
+    border:2px solid rgb(194, 238, 255);
+    background-color: rgb(194, 238, 255);
+    color:  rgb(35, 154, 233);
+    font-weight: bolder;
+
+}
+
+
+
+#btn-delete{
+
+   
+    border: none;
+    transform: translate(450px,-40px);
+    position: fixed;
+    border: none;
+    background-color: #fff;
+
+}
+
+#btn-delete:hover{
+
+   
+    border: none;
+    transform: translate(450px,-40px);
+    position: fixed;
+    border: none;
+    background-color: rgb(255, 0, 0);
+
+}
+
+/* #followers:hover{
+
+    margin-left: 8%;
+    margin-right: 8%;
+    height: 8%;
+    width: 15%;
+    border-radius: 50px;
+    border:2px solid blue;
+    background-color: rgb(35, 154, 233);
+    color:  white;
+    font-weight: bolder;
+
+}
+#following:hover{
+
+    margin-left: 8%;
+    margin-right: 8%;
+    height: 8%;
+    width: 15%;
+    border-radius: 50px;
+    border:2px solid blue;
+    background-color: rgb(35, 154, 233);
+    color:  white;
+    font-weight: bolder;
+
+} */
+

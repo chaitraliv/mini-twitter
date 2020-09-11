@@ -1,0 +1,89 @@
+.timeline{
+    top:0;
+ height: 500px;
+ width: 540px;
+ border: 1px solid rgba(0,0,0,.1);
+ padding: 20px 28.77px;
+ transform:translate(493px,-662px);
+ text-align: center;
+ overflow: hidden;
+}
+.timeline:hover{
+    overflow: scroll;
+
+}
+
+.tweets-timeline{
+    text-align: left;
+    overflow: hidden;
+    margin: 0%;
+}
+
+/* #tweets-timeline-content{
+    border-bottom: 2px solid rgba(0,0,0,.1);
+    padding-top: 3px;
+} */
+.fa-user-circle{
+    font-size: 30px;
+    padding-right: 10px;
+    top:0;
+    transform: translate(0px,10px);
+}
+
+.fa-trash-alt{
+
+    font-size: 30px;
+
+}
+#delete{
+
+    top:0;
+    left: 0;
+    font-size: 30px;
+    /* transform: translate(100px,-50px); */
+    background-color: #fff;
+    position: fixed;
+
+}
+
+#each-content{
+
+    
+    border-bottom: 2px solid rgba(0,0,0,.1);
+    margin: 0%;
+    background-color: #fff;
+
+
+}
+
+#each-content:hover{
+
+    border-bottom: 2px solid rgba(0,0,0,.1);
+    background-color: rgb(241, 251, 255);
+
+
+}
+/* #tweets-timeline-content:hover{
+    border-bottom: 2px solid rgba(0,0,0,.1);
+    background-color: rgb(241, 251, 255);
+} */
+#tweet-user-name{
+    color: rgb(138, 138, 138);
+    font-weight: lighter;
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+#tweet-full-name{
+    color: black;
+    font-weight: bolder;
+    font-size: 17px;
+    
+
+}
+
+#tweet-content{
+    margin-left: 39px;
+    font-weight: lighter;
+    margin-top: 5px;
+}
