@@ -3,6 +3,7 @@ import './Menu.css'
 import history from './../history';
 import axios from 'axios';
 import { Link,withRouter } from 'react-router-dom';
+import logo from './logo.png'
 
 
 
@@ -31,7 +32,7 @@ export class Menu extends Component {
     clickEventProfile=event=>{
 
         event.preventDefault();
-        history.push('/UserProfile/'+this.state.id)
+        history.push('/minitwitter/userprofile/'+this.state.id)
 
     }
     
@@ -39,7 +40,7 @@ export class Menu extends Component {
     clickEventHome=event=>{
 
         event.preventDefault();
-        history.push('/HomePage')
+        history.push('/minitwitter/timeline/')
 
     }
 
@@ -47,7 +48,7 @@ export class Menu extends Component {
     clickEventFollowers=event=>{
 
         event.preventDefault();
-        history.push('/Followers/'+this.state.id)
+        history.push('/minitwitter/followers/'+this.state.id)
 
     }
 
@@ -55,7 +56,7 @@ export class Menu extends Component {
     clickEventFollowings=event=>{
 
         event.preventDefault();
-        history.push('/Followings/'+this.state.id)
+        history.push('/minitwitter/following/'+this.state.id)
 
     }
 
@@ -77,7 +78,7 @@ export class Menu extends Component {
 
                 
                 alert('Tweet Posted')
-                history.push('/UserProfile/'+this.state.id)
+                history.push('/minitwitter/userprofile/'+this.state.id)
                 this.setState({tweets:''})
             }
    
@@ -143,7 +144,7 @@ export class Menu extends Component {
             
             if(response['status']===201){
                 console.log('Followed Successfully!')
-                history.push('/Followings/'+this.state.id)
+                history.push('/minitwitter/following/'+this.state.id)
 
             }
             
@@ -152,17 +153,17 @@ export class Menu extends Component {
             if(error.response['status']===406){
                 console.log('already followed')
                 alert('User already followed!')
-                history.push('/Followings')
+                history.push('/minitwitter/following/')
             }
             else if(error.response['status']===400){
                 console.log('following yourself')
                 alert('You cannot follow yourself!')
-                history.push('/UserProfile')
+                history.push('/minitwitter/userprofile/'+this.state.id)
             }
             else if(error.response['status']===500){
                 console.log('following yourself')
                 alert('already followed')
-                history.push('/HomePage')
+                history.push('/minitwitter/timeline/')
             }
         })
 
@@ -175,7 +176,7 @@ export class Menu extends Component {
 
         console.log(userid)
         localStorage.setItem('otherUserName',userid)
-        history.push('/UserProfile/'+userid)
+        history.push('/minitwitter/userprofile/'+userid)
 
 
     }
@@ -311,7 +312,7 @@ export class Menu extends Component {
                         
                     </div>
                     <div>
-                        <img src="./../logo.png" alt="logo"></img>
+                        <img src={logo} alt="logo"></img>
                     </div>
 
                     <div>
@@ -413,7 +414,7 @@ export class Menu extends Component {
                                                 <button id="follow-button" onClick={()=>{this.followUserBtn(user.id)}}>follow</button>:
 
                                                 <button id="follow-button"
-                                                onClick={()=>{history.push('/Followings/'+this.state.id)}} >
+                                                onClick={()=>{history.push('/minitwitter/following/'+this.state.id)}} >
                                                     following
                                                 </button>
                                                 

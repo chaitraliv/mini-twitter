@@ -14,7 +14,8 @@ export class Followings extends Component {
             
             username:null,
              followings:[],
-             msg:''
+             msg:'',
+             id:this.props.match.params.id
         }
     }
 
@@ -23,7 +24,7 @@ export class Followings extends Component {
         console.log('here',otherUserid)
         const otheruserid = parseInt(otherUserid)
         localStorage.setItem('otherUserName',otheruserid)
-        history.push('/UserProfile/'+otheruserid)
+        history.push('/minitwitter/userprofile/'+otheruserid)
     }
     
     componentDidMount(){
@@ -86,12 +87,12 @@ export class Followings extends Component {
             console.log(response)    
             if(response['status']===204){
                console.log('UnFollowed Successfully!')
-                history.push('/HomePage')
+                history.push('/minitwitter/timeline/')
 
             }
             if(response['status']===208){
                 console.log('Please follow again!')
-                 history.push('/HomePage')
+                 history.push('/minitwitter/timeline/')
  
              }
             
@@ -99,11 +100,11 @@ export class Followings extends Component {
         .catch(error=>{
             if(error.response['status']===406){
                 console.log('already unfollowed')
-                history.push('/Followings')
+                history.push('/minitwitter/following/')
             }
             else if(error.response['status']===400){
                 console.log('unfollowing yourself')
-                history.push('/UserProfile')
+                history.push('/minitwitter/userprofile/'+this.state.id)
             }
         })
 
@@ -113,7 +114,7 @@ export class Followings extends Component {
     clickeventfollowers=event=>{
         const id=this.props.match.params.id
         console.log('id through params in followings->',this.props)
-        this.props.history.push('/Followers/'+id)
+        this.props.history.push('/minitwitter/followers/'+id)
     }
     clickeventfollowings=event=>{
         const id=this.props.match.params.id
@@ -126,7 +127,7 @@ export class Followings extends Component {
         const{followings}=this.state
         return (
             <div>
-                {/* <Menu /> */}
+                
                 <div className="UserFollowings">
                 <div id="logeed-fullname">{this.props.loggedUserFirstName} {this.props.loggedUserLastName}</div>
                 <div id="logeed-username">@{this.props.loggedUserName}</div>

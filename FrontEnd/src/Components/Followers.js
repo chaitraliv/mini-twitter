@@ -21,7 +21,7 @@ export class Followers extends Component {
   viewProfile = (otheruserid, event) => {
     console.log(otheruserid);
     localStorage.setItem("otherUserName", otheruserid);
-    history.push("/UserProfile/" + otheruserid);
+    history.push("/minitwitter/userprofile/" + otheruserid);
   };
 
   // onclick function to follow the user
@@ -42,10 +42,10 @@ export class Followers extends Component {
 
         if (response["status"] === 201) {
           console.log("Followed Successfully!");
-          history.push("/Followings/"+loggedId);
+          history.push("/minitwitter/following/"+loggedId);
         } else if (response["status"] === 208) {
           console.log("User unfollowed!!");
-          history.push("/HomePage");
+          history.push("/minitwitter/timeline/");
         }
       })
       .catch((error) => {
@@ -109,11 +109,11 @@ export class Followers extends Component {
                                   if (response["status"] === 204) 
                                   {
                                     console.log("UnFollowed Successfully!");
-                                    history.push("/Followings/"+id);
+                                    history.push("/minitwitter/following/"+id);
                                   }
                                    else if (response["status"] === 208) {
                                     console.log("User already followed!!");
-                                    history.push("/Followings/"+id);
+                                    history.push("/minitwitter/following/"+id);
                                   }
                                 })
                                 .catch((error) => {
@@ -122,7 +122,7 @@ export class Followers extends Component {
                                     history.push("/Followings");
                                   } else if (error.response["status"] === 400) {
                                     console.log("unfollowing yourself");
-                                    history.push("/UserProfile");
+                                    history.push("/minitwitter/userprofile/"+id);
                                   }
                                 })
                           }
@@ -187,12 +187,12 @@ export class Followers extends Component {
   clickeventfollowers = (event) => {
     const id = this.props.match.params.id;
     console.log("id through params in followings->", this.props);
-    history.push("/Followers/" + id)
+    history.push("/minitwitter/followers/" + id)
   }
   clickeventfollowings = (event) => {
     const id = this.props.match.params.id;
     console.log("id through params in followings->", this.props);
-    history.push("/Followings/" + id)
+    history.push("/minitwitter/following/" + id)
   }
 
   componentDidMount() {

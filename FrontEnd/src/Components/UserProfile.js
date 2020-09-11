@@ -22,8 +22,7 @@ export class UserProfile extends Component {
 
     clickForEdit=event=>{
         const id=this.props.loggedUserId
-        event.preventDefault();
-        history.push('/CreateEditProfile/'+id)
+        history.push('/minitwitter/userprofile/edit/'+id)
 
     }
 
@@ -74,7 +73,7 @@ export class UserProfile extends Component {
                 <div id="upper-portion">{firstname}  {lastname}
                 </div>
 
-                <i class="fa fa-user-alt"></i>
+                <i className="fa fa-user-alt"></i>
                 <div id="full-name">{firstname}  {lastname}</div>
                 <div id="user-id">@{username}</div>
                 <div id="user-id">{bio}</div>
@@ -83,7 +82,12 @@ export class UserProfile extends Component {
                         <h4 id="tweets">
                         
                         {tweets.map(tweet => (
-                                <h4 key={tweet.id}><div id="tweetuser"><i class="fa fa-user-circle"></i>@{this.state.username}<br/></div><div id="user-tweet"><div id="twitter">{tweet.content}</div></div></h4>
+                                <h4 key={tweet.id}><div id="tweetuser"><i class="fa fa-user-circle"></i>@{this.state.username}<br/></div><div id="user-tweet">
+                                    <div id="twitter">{tweet.content}
+                                    
+                                    </div></div>
+                                    <button id='btn-delete'><i class="far fa-trash-alt"></i></button>
+                                </h4>
                             ))}
                         </h4>
                 </div>
@@ -94,7 +98,7 @@ export class UserProfile extends Component {
 
                 }
                 <button id="exitbtn"
-                    onClick={()=>{history.push('/HomePage')}}> 
+                    onClick={()=>{history.push('/minitwitter/timeline/')}}> 
                         Exit
                     </button>
                 

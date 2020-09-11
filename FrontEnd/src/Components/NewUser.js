@@ -19,7 +19,7 @@ export class NewUser extends Component {
 
   buttonClick = (event) => {
     event.preventDefault();
-    history.push("/CreateEditProfile/" + this.props.match.params.id);
+    history.push("/minitwitter/userprofile/edit/" + this.props.match.params.id);
   };
    
   static getDerivedStateFromProps(state,props){

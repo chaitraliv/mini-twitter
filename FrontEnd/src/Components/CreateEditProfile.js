@@ -13,8 +13,7 @@ export class CreateEditProfile extends Component {
             firstname:null,
             lastname:null,
             username:'',
-            bio:null,
-            id:0,
+            bio:null
 
         }
     }
@@ -72,14 +71,14 @@ export class CreateEditProfile extends Component {
     // Function for onclick to save the edit
     clickEvent=event=>{
 
-        console.log(this.state)
+        const id= this.props.match.params.id
 
         axios.defaults.headers = {
             'Content-Type': 'application/json',
             Authorization: "token "+localStorage.getItem('token')
         }
 
-        const id= this.props.match.params.id
+        
         axios
         .put('http://127.0.0.1:8020/minitwitter/users/'+id+'/',{"bio":this.state.bio})
         .then(response=>{
@@ -87,7 +86,7 @@ export class CreateEditProfile extends Component {
 
             event.preventDefault();
             alert('Changes saved')
-            history.push('/UserProfile/'+id)
+            history.push('/minitwitter/userprofile/'+id)
             
             
         })
@@ -106,9 +105,11 @@ export class CreateEditProfile extends Component {
     // Render the whole UI for edit profile form of user
     render() {
 
+        const{firstname,lastname,bio,username}=this.state
+
         return (
             <div>
-                {/* <Menu /> */}
+                
                 <div className="Profile-">
                     <div id="label-upper"> Edit Profile </div>
                     <div className="profileForm">
@@ -118,7 +119,7 @@ export class CreateEditProfile extends Component {
                         <input type="text"
                         id="firstname"
                         name="firstname"
-                        value={this.state.firstname}
+                        value={firstname}
                         onChange={this.updateInputValue}>
 
                         </input>
@@ -127,7 +128,7 @@ export class CreateEditProfile extends Component {
                         <input type="text"
                         id="lastname"
                         name="lastname"
-                        value={this.state.lastname}
+                        value={lastname}
                         onChange={this.updateInputValue}>
                         </input>
 
@@ -136,14 +137,14 @@ export class CreateEditProfile extends Component {
                         id="userName"
                         name="username"
                         maxLength="100"
-                        value={this.state.username}>
+                        value={username}>
                         </input>
 
                         <label id="label-create-edit-profile">Bio</label>
                         <input type="text"
                         id="bio-"
                         name="bio"
-                        value={this.state.bio}
+                        value={bio}
                         onChange={this.updateInputValue}>
 
                         </input>

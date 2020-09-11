@@ -29,6 +29,23 @@
     top:0;
     transform: translate(0px,10px);
 }
+
+.fa-trash-alt{
+
+    font-size: 30px;
+
+}
+#delete{
+
+    top:0;
+    left: 0;
+    font-size: 30px;
+    /* transform: translate(100px,-50px); */
+    background-color: #fff;
+    position: fixed;
+
+}
+
 #each-content{
 
     

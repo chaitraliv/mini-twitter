@@ -48,7 +48,7 @@ class LoginPage extends Component {
                     }
                     console.log('data after logged in-',userdata)
                     localStorage.setItem('id',userdata.id);
-                    history.push('/HomePage')
+                    history.push('/minitwitter/timeline/')
 
                 })
                 // alert(`Welcome ${this.state.userName}  !`)

@@ -76,36 +76,36 @@ export default class Routes extends Component {
                           <Menu loggedUserData={this.loggedUserData}
                                 followingData={this.state.followingData}/>
 
-                            <Route path={`/minitwitter/newuser/:id`} render={props=>(<NewUser {...props}
+                            <Route exact path={`/minitwitter/newuser/:id`} render={props=>(<NewUser {...props}
                                    loggedUserId={this.state.id}
 
                             />)}
                             />
 
-                            <Route path={`/UserProfile/:id`} 
+                            <Route exact path={`/minitwitter/userprofile/:id`} 
                                     render={props=>(<UserProfile {...props} 
                                     loggedUserId={this.state.id}
                                     loggedUserName={this.state.username} />)} 
                             />
-                            <Route path={`/CreateEditProfile/:id`} 
+                            <Route exact path={`/minitwitter/userprofile/edit/:id`} 
                                     component={CreateEditProfile} 
                             />
 
-                            <Route path="/HomePage" render={props=>(<HomePage {...props}
+                            <Route exact path="/minitwitter/timeline/" render={props=>(<HomePage {...props}
                                    loggedUserId={this.state.id}
 
                             />)}
                                     
                             />
 
-                            <Route path={`/Followers/:id`} render={props=>(<Followers {...props}
+                            <Route exact path={`/minitwitter/followers/:id`} render={props=>(<Followers {...props}
                                     loggedUserName={this.state.username}
                                     loggedUserFirstName={this.state.firstname}
                                     loggedUserLastName={this.state.lastname}
                                     followingData={this.state.followingData}
                                     unfollowId={this.state.unfollowId}
                             />)} />
-                            <Route path={`/Followings/:id`} render={props=>(<Followings {...props}
+                            <Route  exact path={`/minitwitter/following/:id`} render={props=>(<Followings {...props}
                                     loggedUserName={this.state.username}
                                     loggedUserFirstName={this.state.firstname}
                                     loggedUserLastName={this.state.lastname}

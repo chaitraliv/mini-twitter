@@ -187,6 +187,30 @@ transform: translate(10px,10px);
 
 }
 
+
+
+#btn-delete{
+
+   
+    border: none;
+    transform: translate(450px,-40px);
+    position: fixed;
+    border: none;
+    background-color: #fff;
+
+}
+
+#btn-delete:hover{
+
+   
+    border: none;
+    transform: translate(450px,-40px);
+    position: fixed;
+    border: none;
+    background-color: rgb(255, 0, 0);
+
+}
+
 /* #followers:hover{
 
     margin-left: 8%;

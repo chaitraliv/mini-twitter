@@ -60,7 +60,7 @@ export class HomePage extends Component {
 
         console.log(userid)
         localStorage.setItem('otherUserName',userid)
-        history.push('/UserProfile/'+userid)
+        history.push('/minitwitter/userprofile/'+userid)
     }
     
 
@@ -79,11 +79,12 @@ export class HomePage extends Component {
                                     <div id="each-content">
 
                                         <div id="tweet-full-name">
-                                        <i class="fa fa-user-circle"></i>
+                                        <i className="fa fa-user-circle"></i>
                                             {tweet.user.first_name} {tweet.user.last_name} 
                                                 <Link id="tweet-user-name" onClick={()=>{this.viewProfile(tweet.user.id)}}>
                                                 <span>@{tweet.user.username}</span>
-                                                </Link> 
+                                                </Link>
+                                                
                                             
                                         </div>
 
