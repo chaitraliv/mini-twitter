@@ -3,7 +3,7 @@ from minitwitter.views import (
 
 UserListCreateView,ProfileRetriveUpdateView,
 TweetListCreateView, CurrentUserView,
-FollowingListView,FollowersListView,
+FollowingFollowerListView, #FollowersListView,
 FollowingRetriveDestroyView,LikeTweetListView,
 LikeTweetRetriveDestroyView, SearchView,
 TweetUpdateDestroyView)
@@ -22,18 +22,16 @@ urlpatterns = [
 
     path('users/<int:pk>/', ProfileRetriveUpdateView.as_view(),name='profile'), 
 
-    path('users/<int:pk>/followings/', FollowingListView.as_view(),name='followings'),
+    path('users/<int:pk>/follow/', FollowingFollowerListView.as_view(),name='followings_followers'),
 
-    path('users/<int:user_id>/followings/<int:pk>/', FollowingRetriveDestroyView.as_view(),name='unfollow'),
-
-    path('users/<int:pk>/followers/', FollowersListView.as_view(),name='followers'),
+    path('users/<int:user_id>/unfollow/<int:pk>/', FollowingRetriveDestroyView.as_view(),name='unfollow'),
 
     path('tweets/', TweetListCreateView.as_view(),name='timeline'),
 
-    path('users/<int:user_id>/tweets/<int:pk>/', TweetUpdateDestroyView.as_view(),name='tweet_update'),
+    path('tweets/<int:pk>/', TweetUpdateDestroyView.as_view(),name='tweet_update'),
 
-    path('tweets/<int:pk>/like/', LikeTweetListView.as_view(),name='like'),
+    path('tweets/<int:pk>/like/', LikeTweetListView.as_view(),name='like_tweet'),
 
-    path('tweets/<int:user_id>/like/<int:pk>/', LikeTweetRetriveDestroyView.as_view(),name='unlike'), 
+    path('tweets/<int:tweet_id>/like/<int:pk>/', LikeTweetRetriveDestroyView.as_view(),name='unlike'),   #removed user id
 
 ]

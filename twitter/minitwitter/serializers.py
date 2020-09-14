@@ -15,8 +15,9 @@ class TweetSerializer(serializers.ModelSerializer):
     user= ThinUserSerializer(read_only=True)
     class Meta:
         model = Tweet
-        fields = ['id','user','content','created_on']
+        fields = ['id','user','content','created_on',]
         read_only_fields = ['user','created_on']
+    
 
 
 
@@ -47,8 +48,8 @@ class UserDataSerializer(serializers.ModelSerializer):
 
 class UserRelationSerializer(serializers.ModelSerializer):
     '''Serializer for follow relation of users'''
-    user=UserSerializer(read_only= True)
-    following= UserSerializer(read_only=True)
+    user=ThinUserSerializer(read_only= True)
+    following= ThinUserSerializer(read_only=True)
     following_id= serializers.IntegerField(required=True)
     class Meta:
         model = UserRelation
@@ -59,6 +60,7 @@ class UserRelationSerializer(serializers.ModelSerializer):
 
 class TweetLikeSerializer(serializers.ModelSerializer):
     '''Serializer for tweet likes'''
+    user=ThinUserSerializer(read_only= True)
     tweet=TweetSerializer(read_only=True)
     tweet_id=serializers.IntegerField(required=True)
 

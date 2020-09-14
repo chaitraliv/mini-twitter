@@ -9,6 +9,7 @@ from minitwitter.models import(
     UserData, UserRelation,
     Tweet, TweetLike,
 )
+
 from minitwitter.serializers import(
     UserSerializer, UserDataSerializer,
     UserRelationSerializer, TweetSerializer,
@@ -25,18 +26,18 @@ class UserListCreateView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     permission_classes = (AllowAny,)
 
+    ''' Function to display all users from the data base, except the ones user follows '''
     def get_queryset(self):
         current_user = self.request.user
-        # following= UserRelation.objects.filter(user=self.request.user).values_list('following',flat=True)
         following_list= current_user.follows.all().values_list('following',flat=True)
         all_users = User.objects.exclude(pk__in=following_list).exclude(id= self.request.user.id)
         return all_users
-    
+   
 
 
 class CurrentUserView(generics.RetrieveAPIView):
     '''
-    API View to return detials of logged in user
+    API View to return user instance of the current logged in user
     '''
     serializer_class = UserSerializer
     permission_classes= (IsAuthenticated,)
@@ -47,7 +48,8 @@ class CurrentUserView(generics.RetrieveAPIView):
 
 class ProfileRetriveUpdateView(generics.RetrieveUpdateAPIView):
     '''
-    API View for showing profile of a user and for logged in user to edit it's own profile
+    API View for showing profile of any user
+    also for logged in user to update his profile
     '''
     queryset = UserData.objects.all()   
     serializer_class = UserDataSerializer
@@ -71,17 +73,16 @@ class SearchView(generics.ListAPIView):
 class TweetListCreateView(generics.ListCreateAPIView):
     '''
     API to post a tweet and display, logged in user's and its following users's tweets
-    also to perform full text search
     '''
     queryset = Tweet.objects.all()
     serializer_class = TweetSerializer
     permission_classes = (IsAuthenticated,)
 
-    
+    ''' To save the tweet '''    
     def perform_create(self,serializer):
         serializer.save(user= self.request.user)
     
-    
+    ''' Timeline function to display tweets of logged in user and user it follows'''
     def get_queryset(self):
         current_user = self.request.user
         following_list= current_user.follows.all().values_list('following',flat=True)
@@ -100,19 +101,27 @@ class TweetUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
-class FollowingListView(generics.ListCreateAPIView):
+class FollowingFollowerListView(generics.ListCreateAPIView):
     '''
     API to follow any user as well list the users, logged in user is following
     '''
     queryset = UserRelation.objects.all()
     serializer_class = UserRelationSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,IsOwner)
 
-    def filter_queryset(self,queryset):
-        return  queryset.filter(user=self.kwargs["pk"])
-        
+    ''' Function to display followers and followings of logged user '''      
+
+    def get_queryset(self):
+        field= self.request.query_params['field']
+        if field == 'followings':
+            return  self.queryset.filter(user_id=self.request.user)
+        elif field == 'followers':
+            return self.queryset.filter(following= self.request.user)
+
+    ''' To create follow instance'''
     def perform_create(self,serializer):
         serializer.save(user_id=self.request.user.id)
+
 
 
 
@@ -124,23 +133,7 @@ class FollowingRetriveDestroyView(generics.RetrieveDestroyAPIView):
     serializer_class = UserRelationSerializer
     permission_classes = (IsAuthenticated,IsOwner)
 
-    def get_queryset(self):
-        return  self.queryset.filter(user=self.request.user)     
-
-    
-
-class FollowersListView(generics.ListAPIView):
-    '''
-    API to see logged in user's followers
-    '''
-    queryset = UserRelation.objects.all()
-    serializer_class = UserRelationSerializer
-    permission_classes = (IsAuthenticated,)
-
-    def filter_queryset(self,queryset):
-       return self.queryset.filter(following= self.request.user.id)
-
-
+   
 
 class LikeTweetListView(generics.ListCreateAPIView):
     '''
@@ -150,11 +143,13 @@ class LikeTweetListView(generics.ListCreateAPIView):
     serializer_class = TweetLikeSerializer
     permission_classes = (IsAuthenticated,)
 
-    def filter_queryset(self,queryset):
-        return  queryset.filter(user=self.request.user)
+    ''' Get list of users who liked a perticular tweet '''
+    def get_queryset(self):
+        return  self.queryset.filter(tweet= self.kwargs['pk'])
 
+    ''' Create instance of like for that particular tweet and user '''
     def perform_create(self,serializer):
-        serializer.save(user_id=self.request.user.id)
+        serializer.save(tweet_id= self.kwargs["pk"],user_id= self.request.user.id)
 
 
 
@@ -165,7 +160,3 @@ class LikeTweetRetriveDestroyView(generics.RetrieveDestroyAPIView):
     queryset = TweetLike.objects.all()
     serializer_class = TweetLikeSerializer
     permission_classes = (IsAuthenticated,IsOwner)
-    
-
-    def get_queryset(self):
-        return  self.queryset.filter(tweet= self.request.user.id)    

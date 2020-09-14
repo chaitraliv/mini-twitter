@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 
 
-#use manager
+
 @receiver(models.signals.post_save, sender=User)
 def profile_create(sender, instance, created, **kwargs):
     if created:
@@ -11,7 +11,7 @@ def profile_create(sender, instance, created, **kwargs):
 
 
 class UserData(models.Model):
-    #change model name
+
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     bio = models.CharField(max_length=100)
     profile_picture = models.ImageField(upload_to= 'user_image',null= True)
