@@ -1,0 +1,80 @@
+
+.Profile-{
+    
+ top:0;
+ height: 657px;
+ width: 540px;
+ border: 1px solid rgba(0,0,0,.1);
+ padding: 20px 28.77px;
+ transform:translate(493px,-870px);
+ /* text-align: center; */
+ /* overflow: scroll; */
+ background-color: #fff;
+}
+
+ #label-upper{
+    
+    left:0;
+    top:0;
+    transform: translate(-10px,-19px);
+    background-color:white ;
+    font-weight: bolder;
+    color: black;
+    font-size: 20px;
+    /* margin-left: 20px; */
+    text-align: left;
+    margin-bottom: 30px;
+    /* border-bottom: 20px solid skyblue; */
+   
+} 
+#label-create-edit-profile{
+
+    color: gray;
+    font-weight: bolder;
+    font-size: 18px;
+    padding: 5px 5px;
+   
+
+    
+}
+
+#firstname,#lastname,#userName,#bio-{
+
+    display: flex;
+    flex-direction: column;
+    
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 2px solid black;
+    /* margin-left: 35%; */
+    padding: 10px 30px;
+    width: 90%;
+    background-color: rgb(230, 248, 255);
+    color: black;
+    font-weight: bolder;
+    font-size: 16px;
+    
+}
+
+.profileForm button{
+    height: 40px;
+    padding: 10px 60px;
+    border-radius: 50px;
+    background-color:white ;
+    margin-top: 20px;
+    color: rgba(35, 154, 233);
+    border:2px solid skyblue;
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+.profileForm button:hover{
+    height: 50px;
+    padding: 10px 70px;
+    border-radius: 50px;
+    background-color:rgba(35, 154, 233) ;
+    color: white;
+    border:2px solid skyblue;
+    font-weight: bolder;
+    font-size: 20px;
+}

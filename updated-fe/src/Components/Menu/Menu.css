@@ -1,0 +1,368 @@
+.Menu{
+    display: flex;
+     justify-content: space-between;
+     width: 100px;
+     
+}
+.sideMenu{
+   
+ margin-left: 250px;
+height: 100%; 
+text-align: left; 
+margin-right: 30px; 
+
+}
+.sideMenu img{
+    margin-left: 54px;
+    width: 30px;
+    margin-bottom: 20px;
+}
+.sideMenu button{
+    border-radius: 30px;
+    margin-bottom: 20px;
+    padding: 15px 60px;
+    border: none;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+    color: black;
+    background-color: white;
+
+}
+
+.sideMenu button:hover{
+    border-radius: 30px;
+    margin-bottom: 20px;
+    padding: 15px 60px;
+    border: none;
+    text-align: center;
+    font-weight: bolder;
+    color: white;
+    background-color: rgb(35, 154, 233);
+    
+
+}
+
+/* .fa-home{
+    font-size:24px;
+
+}
+
+.fa-user-friends{
+    
+    font-size: 20px;
+    
+}
+.fa-user{
+
+    font-size: 20px;
+
+} */
+
+#user-info{
+
+    
+    text-align: left;
+    margin-top: 30px;
+    font-style: normal;
+    font-size: 12px;
+    font-weight: bolder;
+    color:rgb(35, 154, 233);
+    margin-bottom: 40px;
+    padding: 15px 55px;
+    border-width: 5px;
+    border:1px solid white;
+    border-radius: 50px;
+    
+}
+#user-info:hover{
+
+    border:1px solid rgb(220, 245, 255);
+    border-radius: 50px;
+    background-color:rgb(220, 245, 255);
+
+}
+#menu-username{
+    font-size: 10px;
+    color: gray;
+    text-align: left;
+}
+#menu-fullname{
+    font-size: 13px;
+    color: black;
+    font-style:oblique;
+}
+
+/* .sideMenu h3{
+    font-style: italic;
+    font-size: 30px;
+    font-weight: bolder;
+    color:rgb(35, 154, 233) ;
+    background-color: white;
+    padding: 15px 60px;
+    margin-bottom: 40px;
+} */
+
+/* .sideMenu h3:hover{
+    font-style: italic;
+    font-size: 30px;
+    font-weight: bolder;
+    background-color: rgb(35, 154, 233);
+    color: white;
+    border-radius: 50px;
+    padding: 15px 40px;
+    
+   
+} */
+/* .tweetContainer{
+    /* display: flex;
+   align-content: flex-start;
+   flex-direction: column; 
+}*/
+
+/* #top-label{
+    font-size: 20px;
+    font-weight: bolder;
+    border-bottom:2px solid rgba(0,0,0,.1) ;
+    
+} */
+
+#home-label{
+    border: 1px solid rgba(0,0,0,.1);
+    
+}
+.tweetBox{
+  height:17% ;
+  width: 600px;
+  padding: 10px 50px;
+  box-sizing: border-box;
+  border-left: 1px solid rgba(0,0,0,.1);
+  border-right: 1px solid rgba(0,0,0,.1);
+  
+  border-bottom: 10px solid rgba(0,0,0,.1);
+  /* border: 1px rgba(0,0,0,.1); */
+  /* box-shadow: 0 5px 10px rgba(0,0,0,.2); */
+  text-align: center;
+  
+  
+}
+  
+
+.tweetBox textarea{
+    height: 30px;
+    width: 100%;
+    color: black;
+    font-weight: bolder;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 8px 20px;
+    /* border:3px solid skyblue; */
+    border: none;
+    /* box-shadow: 0 5px 10px rgb(99, 99, 219); */
+}
+::placeholder{
+   
+    color:black;
+    font-size: 20px;
+    font-weight: lighter;
+    text-align: left;
+}
+
+#tweetError{
+    color: red;
+}
+
+.tweetBox button:hover{
+    height: 35px;
+    background-color: rgb(35, 154, 233) ;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    font-weight: bolder;
+}
+
+.tweetBox button{
+   
+    height: 35px;
+    background-color:white ;
+    border-radius: 50px;
+    border:2px solid skyblue;
+    color:  rgb(35, 154, 233);
+    font-weight: bolder;
+    cursor: pointer;
+    margin-left: 20px;
+    
+}
+ .Pages{
+    height: 100%;
+    opacity: 0.1;
+  
+} 
+
+.searchUser{
+   
+    height: 872px;
+    /* height: 50%; */
+    margin-left: 20px;
+    width: 500px;
+    padding: 0px 0px;
+    /* border: 1px rgba(0,0,0,.1); */
+    /* box-shadow: 0 5px 10px rgba(0,0,0,.2); */
+    text-align:center;
+    
+
+}
+.searchBar input{
+    
+    height: 30px;
+    padding: 10px 10px;
+    border-radius: 50px;
+    border: none;
+    background-color: rgb(206, 202, 202);
+    color: black;
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+.searchBar input::placeholder{
+    color: black;
+    font-weight: bolder;
+    font-size: 20px;
+}
+
+.searchBar button{
+
+    margin-top: 10px;
+    height: 40px;
+    background-color:white ;
+    border-radius: 50px;
+    border:2px solid skyblue;
+    color:  rgb(35, 154, 233);
+    font-weight: bolder;
+    cursor: pointer;
+
+}
+
+.searchBar button:hover{
+    height: 40px;
+    background-color: rgb(35, 154, 233) ;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    font-weight: bolder;
+}
+
+.users{
+
+    /* margin-top: 20px; */
+    height: 710.5px;
+    width: 400px;
+    border: 1px solid rgb(240, 249, 255);
+    background-color: rgb(240, 249, 255) ;
+    /* border-bottom:20px solid rgb(35, 154, 233); */
+    text-align: left;
+    overflow: -moz-hidden-unscrollable;
+    border-radius: 20px;
+    
+}
+.users:hover{
+
+    /* margin-top: 20px; */
+    height: 700px;
+    width: 400px;
+    border: 1px solid skyblue;
+    /* border-bottom:20px solid rgb(35, 154, 233); */
+    text-align: left;
+    overflow: scroll;
+    border-radius: 20px;
+    
+}
+.users h2{
+    margin-left: 20px;
+}
+
+#other-users-list{
+    /* width: inherit; */
+
+    font-weight: bolder;
+    color:black;
+    overflow-y: scroll;
+    /* border-radius: 20px 20px; */
+    /* border-start-end-radius: 20px; */
+    /* border-top-right-radius: 40px; */
+    
+
+}
+
+#other-user-name{
+    margin-left: 20px;
+    /* padding: 5px 0px; */
+    font-weight: bolder;
+    font-size: 18px;
+    color:black;
+    /* width: inherit; */
+   
+}
+#for-each{
+
+    border-top: 1px solid rgba(0,0,0,.1);
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    background-color: rgb(240, 249, 255) ;
+       
+}
+
+/* link:link{
+    color: blue;
+    text-decoration: none;
+}
+link:visited{
+    text-decoration: none;
+} */
+#for-each:hover{
+
+    
+    background-color:rgb(245, 245, 245);
+      
+}
+/* rgb(215, 239, 255) */
+
+#follow-button{
+
+    text-align: center;
+    height: 30px;
+    width: 80px;
+    background-color: rgb(35, 154, 233);
+    color: white;
+    font-weight: bolder;
+    transform: translate(280px,-34px);
+}
+/* #visit-profile-button{
+
+    margin-left: 10px;
+    text-align: center;
+    height: 30px;
+    width: 80px;
+    background-color: rgb(35, 154, 233);
+    color: white;
+    font-weight: bolder;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
