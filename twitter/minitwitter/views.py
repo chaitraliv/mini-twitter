@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db.models import Q
+from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework import filters
 from rest_framework import generics, mixins
@@ -85,9 +86,19 @@ class TweetListCreateView(generics.ListCreateAPIView):
     ''' Timeline function to display tweets of logged in user and user it follows'''
     def get_queryset(self):
         current_user = self.request.user
-        following_list= current_user.follows.all().values_list('following',flat=True)
-        all_users = Tweet.objects.filter(Q(pk__in=following_list) | Q(user= current_user))
-        return all_users
+        list_type = self.request.query_params['list']
+
+        
+        if list_type == 'my':
+            all_users = Tweet.objects.filter(user= current_user)
+            return all_users
+
+        elif list_type == 'timeline':
+            #tweets of logged user and user he follows
+            following_list= current_user.follows.all().values_list('following',flat=True)
+            all_users = Tweet.objects.filter(Q(pk__in=following_list) | Q(user= current_user))
+            return all_users
+
 
 
 
@@ -120,7 +131,11 @@ class FollowingFollowerListView(generics.ListCreateAPIView):
 
     ''' To create follow instance'''
     def perform_create(self,serializer):
-        serializer.save(user_id=self.request.user.id)
+        if self.request.user.id == self.kwargs['pk']:
+            raise ValidationError("Self following is not allowed")
+        else:    
+            serializer.save(user_id=self.request.user.id)
+        
 
 
 
