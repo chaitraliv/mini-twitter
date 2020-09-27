@@ -15,8 +15,9 @@ class TweetSerializer(serializers.ModelSerializer):
     user= ThinUserSerializer(read_only=True)
     class Meta:
         model = Tweet
-        fields = ['id','user','content','created_on']
+        fields = ['id','user','content','created_on',]
         read_only_fields = ['user','created_on']
+    
 
 
 
@@ -26,6 +27,11 @@ class UserSerializer(serializers.ModelSerializer):
     last_name= serializers.CharField(required=True)
     email= serializers.EmailField(required=True)
     tweets= TweetSerializer(many=True,read_only=True)
+    follow= serializers.SerializerMethodField()
+
+    def get_follow(self, other_user_obj):
+        user = self.context['request'].user
+        return user.id in other_user_obj.followers.all().values_list('user_id', flat=True)
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
@@ -33,7 +39,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id','username','first_name','last_name','password','tweets','email']
+        fields = ['id','username','first_name','last_name','password','tweets','email','follow']
         extra_kwargs = {'password': {'write_only': True}}
         
 
@@ -47,8 +53,8 @@ class UserDataSerializer(serializers.ModelSerializer):
 
 class UserRelationSerializer(serializers.ModelSerializer):
     '''Serializer for follow relation of users'''
-    user=UserSerializer(read_only= True)
-    following= UserSerializer(read_only=True)
+    user=ThinUserSerializer(read_only= True)
+    following= ThinUserSerializer(read_only=True)
     following_id= serializers.IntegerField(required=True)
     class Meta:
         model = UserRelation
@@ -59,6 +65,7 @@ class UserRelationSerializer(serializers.ModelSerializer):
 
 class TweetLikeSerializer(serializers.ModelSerializer):
     '''Serializer for tweet likes'''
+    user=ThinUserSerializer(read_only= True)
     tweet=TweetSerializer(read_only=True)
     tweet_id=serializers.IntegerField(required=True)
 
