@@ -15,6 +15,7 @@ class UserData(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     bio = models.CharField(max_length=100)
     profile_picture = models.ImageField(upload_to= 'user_image',null= True)
+        
 
     
 class Tweet(models.Model):

@@ -96,12 +96,9 @@ class TweetListCreateView(generics.ListCreateAPIView):
         elif list_type == 'timeline':
             #tweets of logged user and user it follows
             following_list= current_user.follows.all().values_list('following',flat=True)
-            print('following',following_list)
             all_users = Tweet.objects.filter(Q(user_id__in=following_list) | Q(user= current_user))
             return all_users
        
-
-
 
 
 
