@@ -32,6 +32,6 @@ urlpatterns = [
 
     path('tweets/<int:pk>/like/', LikeTweetListView.as_view(),name='like_tweet'),
 
-    path('tweets/<int:tweet_id>/like/<int:pk>/', LikeTweetRetriveDestroyView.as_view(),name='unlike'),   #removed user id
+    path('tweets/<int:tweet_id>/like/<int:pk>/', LikeTweetRetriveDestroyView.as_view(),name='unlike')
 
 ]

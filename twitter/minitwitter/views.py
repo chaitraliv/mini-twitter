@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework import filters
 from rest_framework import generics, mixins
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .permissions import IsOwner,IsSafeMethod
+from .permissions import IsOwner 
 from minitwitter.models import(
     UserData, UserRelation,
     Tweet, TweetLike,
@@ -33,7 +33,7 @@ class UserListCreateView(generics.ListCreateAPIView):
         following_list= current_user.follows.all().values_list('following',flat=True)
         all_users = User.objects.exclude(pk__in=following_list).exclude(id= self.request.user.id)
         return all_users
-   
+    
 
 
 class CurrentUserView(generics.RetrieveAPIView):
@@ -62,12 +62,12 @@ class SearchView(generics.ListAPIView):
     '''
     APIView for full text search
     '''
-    queryset = Tweet.objects.all()
-    serializer_class = TweetSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     permission_classes = (IsAuthenticated,)
 
     filter_backends = [filters.SearchFilter]
-    search_fields = ['user__username','user__first_name','user__last_name','content']
+    search_fields = ['username','first_name','last_name','tweets__content']
 
 
 
@@ -89,15 +89,18 @@ class TweetListCreateView(generics.ListCreateAPIView):
         list_type = self.request.query_params['list']
 
         
-        if list_type == 'my':
+        if list_type == 'selftweets':
             all_users = Tweet.objects.filter(user= current_user)
             return all_users
 
         elif list_type == 'timeline':
-            #tweets of logged user and user he follows
+            #tweets of logged user and user it follows
             following_list= current_user.follows.all().values_list('following',flat=True)
-            all_users = Tweet.objects.filter(Q(pk__in=following_list) | Q(user= current_user))
+            print('following',following_list)
+            all_users = Tweet.objects.filter(Q(user_id__in=following_list) | Q(user= current_user))
             return all_users
+       
+
 
 
 
@@ -123,10 +126,10 @@ class FollowingFollowerListView(generics.ListCreateAPIView):
     ''' Function to display followers and followings of logged user '''      
 
     def get_queryset(self):
-        field= self.request.query_params['field']
-        if field == 'followings':
+        list_type= self.request.query_params['list']
+        if list_type == 'followings':
             return  self.queryset.filter(user_id=self.request.user)
-        elif field == 'followers':
+        elif list_type == 'followers':
             return self.queryset.filter(following= self.request.user)
 
     ''' To create follow instance'''
@@ -134,7 +137,7 @@ class FollowingFollowerListView(generics.ListCreateAPIView):
         if self.request.user.id == self.kwargs['pk']:
             raise ValidationError("Self following is not allowed")
         else:    
-            serializer.save(user_id=self.request.user.id)
+            serializer.save(user_id=self.request.user.id,following_id= self.kwargs['pk'])
         
 
 
