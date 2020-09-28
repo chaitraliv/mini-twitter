@@ -27,11 +27,6 @@ class UserSerializer(serializers.ModelSerializer):
     last_name= serializers.CharField(required=True)
     email= serializers.EmailField(required=True)
     tweets= TweetSerializer(many=True,read_only=True)
-    follow= serializers.SerializerMethodField()
-
-    def get_follow(self, other_user_obj):
-        user = self.context['request'].user
-        return user.id in other_user_obj.followers.all().values_list('user_id', flat=True)
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
@@ -39,7 +34,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id','username','first_name','last_name','password','tweets','email','follow']
+        fields = ['id','username','first_name','last_name','password','tweets','email',]
         extra_kwargs = {'password': {'write_only': True}}
         
 

@@ -71,6 +71,7 @@ class SearchView(generics.ListAPIView):
 
 
 
+
 class TweetListCreateView(generics.ListCreateAPIView):
     '''
     API to post a tweet and display, logged in user's and its following users's tweets
@@ -89,12 +90,12 @@ class TweetListCreateView(generics.ListCreateAPIView):
         list_type = self.request.query_params['list']
 
         
-        if list_type == 'selftweets':
+        if list_type == 'user':
             all_users = Tweet.objects.filter(user= current_user)
             return all_users
 
         elif list_type == 'timeline':
-            #tweets of logged user and user it follows
+            '''tweets of logged user and user it follows'''
             following_list= current_user.follows.all().values_list('following',flat=True)
             all_users = Tweet.objects.filter(Q(user_id__in=following_list) | Q(user= current_user))
             return all_users
