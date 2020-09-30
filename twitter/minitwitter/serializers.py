@@ -63,8 +63,9 @@ class TweetLikeSerializer(serializers.ModelSerializer):
     user=ThinUserSerializer(read_only= True)
     tweet=TweetSerializer(read_only=True)
     tweet_id=serializers.IntegerField(required=True)
+ 
 
     class Meta:
         model = TweetLike
-        fields = ['id','user','tweet','tweet_id']
+        fields = ['id','user','tweet','tweet_id',]
         read_only_fields = ['user','tweet']

@@ -128,7 +128,7 @@ class FollowingFollowerListView(generics.ListCreateAPIView):
         if list_type == 'followings':
             return  self.queryset.filter(user_id=self.request.user)
         elif list_type == 'followers':
-            return self.queryset.filter(following= self.request.user)
+            return self.queryset.filter(following_id= self.request.user)
 
     ''' To create follow instance'''
     def perform_create(self,serializer):
