@@ -50,7 +50,7 @@ class UserRelationSerializer(serializers.ModelSerializer):
     '''Serializer for follow relation of users'''
     user=ThinUserSerializer(read_only= True)
     following= ThinUserSerializer(read_only=True)
-    following_id= serializers.IntegerField(required=True)
+    following_id= serializers.IntegerField(required=False)
     class Meta:
         model = UserRelation
         fields = ('id','user','following','following_id')

@@ -3,7 +3,7 @@ from minitwitter.views import (
 
 UserListCreateView,ProfileRetriveUpdateView,
 TweetListCreateView, CurrentUserView,
-FollowingFollowerListView, #FollowersListView,
+FollowingFollowerListView,
 FollowingRetriveDestroyView,LikeTweetListView,
 LikeTweetRetriveDestroyView, SearchView,
 TweetUpdateDestroyView)

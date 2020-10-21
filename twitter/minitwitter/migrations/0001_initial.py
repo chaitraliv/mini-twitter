@@ -5,6 +5,8 @@ from django.db import migrations, models
 import django.db.models.deletion
 
 
+
+
 class Migration(migrations.Migration):
 
     initial = True
@@ -12,6 +14,8 @@ class Migration(migrations.Migration):
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
+ 
+        
 
     operations = [
         migrations.CreateModel(
@@ -56,4 +60,5 @@ class Migration(migrations.Migration):
                 'unique_together': {('user', 'tweet')},
             },
         ),
+
     ]

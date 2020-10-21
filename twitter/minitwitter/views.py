@@ -1,10 +1,12 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.db.models import Q
+from django.contrib.postgres.search import SearchVector, SearchQuery
 from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework import filters
 from rest_framework import generics, mixins
 from rest_framework.permissions import AllowAny, IsAuthenticated
+
 from .permissions import IsOwner 
 from minitwitter.models import(
     UserData, UserRelation,
@@ -29,12 +31,14 @@ class UserListCreateView(generics.ListCreateAPIView):
 
     ''' Function to display all users from the data base, except the ones user follows '''
     def get_queryset(self):
-        current_user = self.request.user
-        following_list= current_user.follows.all().values_list('following',flat=True)
-        all_users = User.objects.exclude(pk__in=following_list).exclude(id= self.request.user.id)
-        return all_users
-    
 
+            current_user = self.request.user
+            if self.request.user.is_authenticated :
+                following_list= current_user.follows.all().values_list('following',flat=True)
+                all_users = User.objects.exclude(pk__in=following_list).exclude(id= self.request.user.id)
+                return all_users
+            else:
+                return User.objects.all()
 
 class CurrentUserView(generics.RetrieveAPIView):
     '''
@@ -62,13 +66,18 @@ class SearchView(generics.ListAPIView):
     '''
     APIView for full text search
     '''
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    queryset = Tweet.objects.all()
+    serializer_class = TweetSerializer
     permission_classes = (IsAuthenticated,)
 
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['username','first_name','last_name','tweets__content']
 
+    def get_queryset(self):
+        query = self.request.query_params['search']
+        object_lists = Tweet.objects.annotate(
+            search = SearchVector('user__username','user__first_name','user__last_name','content'),
+        ).filter(search = SearchQuery(query))
+
+        return object_lists
 
 
 
@@ -99,7 +108,8 @@ class TweetListCreateView(generics.ListCreateAPIView):
             following_list= current_user.follows.all().values_list('following',flat=True)
             all_users = Tweet.objects.filter(Q(user_id__in=following_list) | Q(user= current_user))
             return all_users
-       
+        else:
+            raise ValidationError('Give valid input')
 
 
 
@@ -125,15 +135,22 @@ class FollowingFollowerListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         list_type= self.request.query_params['list']
+
         if list_type == 'followings':
             return  self.queryset.filter(user_id=self.request.user)
+
         elif list_type == 'followers':
             return self.queryset.filter(following_id= self.request.user)
 
+        else:
+            raise ValidationError('Give valid input')
+
     ''' To create follow instance'''
     def perform_create(self,serializer):
+
         if self.request.user.id == self.kwargs['pk']:
             raise ValidationError("Self following is not allowed")
+
         else:    
             serializer.save(user_id=self.request.user.id,following_id= self.kwargs['pk'])
         
@@ -147,9 +164,9 @@ class FollowingRetriveDestroyView(generics.RetrieveDestroyAPIView):
     '''
     queryset = UserRelation.objects.all()
     serializer_class = UserRelationSerializer
-    permission_classes = (IsAuthenticated,IsOwner)
+    permission_classes = (IsAuthenticated, IsOwner)
 
-   
+
 
 class LikeTweetListView(generics.ListCreateAPIView):
     '''
